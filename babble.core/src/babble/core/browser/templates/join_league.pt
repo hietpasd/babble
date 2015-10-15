@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+    <form id="form" method="post" action="${context/absolute_url}/join_league" tal:condition="not: view/reached_league_max">
+        
+        <tal:block condition="context/league_private">
+            <label for="league-password">Password required:</label>
+            <input id="league-password" type="text" value="" name="form.widgets.password" />
+        </tal:block>
+        
+        <label for="league-player">Your Player Name:</label>
+        <input id="league-player" type="text" value="" name="form.widgets.player" />
+        
+        <br />
+        
+        <input class="context" type="submit" value="Join League" name="form.buttons.join" />
+        <input id="babble-league-cancel" class="standalone" type="button" value="Cancel"  />
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<registry>
+
+    <record name="babble.core.conferences">
+        <field type="plone.registry.field.Tuple">
+            <title>Conferences</title>
+            <description>List of conferences</description>
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value>
+            <element>AAC</element>
+            <element>Atlantic 10</element>
+            <element>ACC</element>
+            <element>Big 12</element>
+            <element>Big East</element>
+            <element>Big Ten</element>
+            <element>Pac-12</element>
+            <element>SEC</element>
+            <element>Big West</element>
+            <element>Colonial</element>
+            <element>Conference USA</element>
+            <element>Division 1 Independents</element>
+            <element>Horizon</element>
+            <element>Ivy</element>
+            <element>MAC</element>
+            <element>Missouri Valley</element>
+            <element>Mountain West</element>
+            <element>Patriot</element>
+            <element>Summit</element>
+            <element>Sun Belt</element>
+            <element>West Coast</element>
+            <element>American East</element>
+            <element>Alantic Sun</element>
+            <element>Big Sky</element>
+            <element>Big South</element>
+            <element>MAAC</element>
+            <element>MEAC</element>
+            <element>NEC</element>
+            <element>OVC</element>
+            <element>Southern</element>
+            <element>Southland</element>
+            <element>SWAC</element>
+            <element>WAC</element>
+        </value>
+    </record>
+    
+</registry>

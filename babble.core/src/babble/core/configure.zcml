@@ -1,0 +1,46 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="babble.core">
+
+  <includeDependencies package="." />
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include package=".browser" />
+  <include package=".models" />
+
+
+  <genericsetup:registerProfile
+      name="default"
+      title="babble.core"
+      directory="profiles/default"
+      description="Installs the babble.core add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="babble.core-postInstall"
+      title="babble.core post_install import step"
+      description="Post install import step from babble.core"
+      handler=".setuphandlers.post_install">
+  </genericsetup:importStep>
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="babble.core"
+      directory="profiles/uninstall"
+      description="Uninstalls the babble.core add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="babble.core-uninstall"
+      title="babble.core uninstall import step"
+      description="Import step run during ininstalling babble.core"
+      handler=".setuphandlers.uninstall">
+  </genericsetup:importStep>
+
+</configure>

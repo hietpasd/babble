@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#babble-league-join').click(function(){
+                    $('#babble-popup').load("${context/absolute_url}/join_league #form",function(){
+                        $('.plone-modal-backdrop, #babble-popup').fadeIn(333);
+                        $('#babble-league-cancel').click(function(){
+                            $('.plone-modal-backdrop, #babble-popup').fadeOut(333, function(){
+                                $('#babble-popup').empty();
+                            });
+                        });
+                    });
+                });
+
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+    
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">${context/Title} League</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+
+        <input tal:condition="python: context.league_private and not view.is_in_league and not view.reached_league_max" id="babble-league-join" class="context" type="button" value="Join League &#128274;"  />
+        <input tal:condition="python: not context.league_private and not view.is_in_league and not view.reached_league_max" id="babble-league-join" class="context" type="button" value="Join League"  />
+
+        <div id="babble-your-league-listing">
+            <h2> League Standings </h2>
+            <ul id="babble-league-ranking">
+                <li tal:repeat="player view/get_league_players">
+                    ${player/score} - <a href="${context/absolute_url}/${player/getId}">${player/Title}</a>
+                </li>
+            </ul>
+        </div>
+        
+        
+        <div id="babble-league-draft">
+            <h2> Draft Order </h2>
+            <ol id="babble-league-ranking">
+                <li tal:repeat="player view/get_league_players_by_draft">
+                    <a href="${context/absolute_url}/${player/getId}">${player/Title}</a>
+                </li>
+            </ol>
+        </div>
+        
+        <a tal:condition="python: view.is_in_league and view.is_pre_season_draft_visible" class="context" href="${context/absolute_url}/predraft">Go to Preseason Drafting</a>
+        <a tal:condition="python: view.is_in_league and view.is_mid_season_draft_visible" class="context" href="${context/absolute_url}/middraft">Go to Midseason Drafting</a>
+    
+        <div id="babble-league-manager">
+        </div>
+    
+	</metal:content-core>
+
+</body>
+</html>

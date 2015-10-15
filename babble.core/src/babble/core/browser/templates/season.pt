@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+    
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">${context/Title} Season</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+    
+        <div id="babble-season">
+            
+            <ul>
+                <li>
+                    <a href="${context/absolute_url}/leagues">View Leagues</a>
+                </li>
+                <li>
+                    <a href="${context/absolute_url}/schedule">View Schedule</a>
+                </li>
+                <li>
+                    <a href="${context/absolute_url}/teams">View Teams</a>
+                </li>
+            </ul>
+            
+            
+        </div>
+    
+	</metal:content-core>
+
+</body>
+</html>

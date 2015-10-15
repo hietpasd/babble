@@ -1,0 +1,6 @@
+[report]
+include =
+    src/babble/*
+omit =
+    */test*
+    */upgrades/*

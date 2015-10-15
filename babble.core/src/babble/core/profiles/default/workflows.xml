@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_workflow">
+    <bindings>
+        <type type_id="babble.core.models.player">
+            <bound-workflow workflow_id="one_state_workflow"/>
+        </type>
+        <type type_id="babble.core.models.league">
+            <bound-workflow workflow_id="one_state_workflow"/>
+        </type>
+    </bindings>
+</object>

@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+    
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">${context/Title}</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+    
+        <div id="babble-league-player" tal:define="member view/get_member">
+            
+            <tal:block replace="structure view/get_member_image" />
+            
+            <h3>Score</h3>
+            <div>${context/score}</div>
+            
+            <h3>Draft Picks</h3>
+            <ol>
+                <li tal:repeat="team view/get_teams">
+                    <a href="${team/getURL}">${team/Title} - ${team/conference}</a>
+                </li>
+            </ol>
+            
+        </div>
+    
+	</metal:content-core>
+
+</body>
+</html>

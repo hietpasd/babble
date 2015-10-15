@@ -1,0 +1,114 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+            
+                $('#babble-cancel-league').click(function(){
+                    document.location.href = $('body').attr('data-base-url');
+                });
+            
+                $('#form').hide();
+                $('#babble-create-league').click(function(){
+                    $('#form-intro').fadeOut(200, function(){
+                        $('#form').slideDown();
+                    });
+                });
+                
+                $('#formfield-form-widgets-league_password').hide();
+                $('#formfield-form-widgets-league_private input').change(function(){
+                    if($(this).is(':checked'))
+                        $('#formfield-form-widgets-league_password').slideDown();
+                    else
+                        $('#formfield-form-widgets-league_password').hide();
+                });
+                
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+    
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">Create a league</h1>
+	</metal:content-title>
+
+	<metal:content-core fill-slot="content-core">
+
+        <div id="form-intro">
+        
+            <div>
+                Disclaimer: <br />
+                Please <u>do not</u> create leagues beyond the 3 original leagues until all system testing has been verified.
+            </div>
+            
+            <br />
+            <input id="babble-create-league" class="context" type="button" value="Create a league" />
+            <input id="babble-cancel-league" class="standalone" type="button" value="Cancel" />
+        </div>
+    
+    
+        <form id="form" enctype="multipart/form-data" method="post" action="${context/absolute_url}/create_league" class="rowlike enableUnloadProtection   kssattr-formname-++add++babble.core.models.league" data-pat-autotoc="levels: legend; section: fieldset; className: autotabs">
+            <!-- Default fieldset -->
+            <div id="formfield-form-widgets-title" data-fieldname="form.widgets.title" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.title empty" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-title">
+                League Name
+                <span title="Required" class="required horizontal">&nbsp;</span>
+                </label>
+                <div class="fieldErrorBox"></div>
+                <input type="text" value="" class="text-widget required textline-field" name="form.widgets.title" id="form-widgets-title">
+            </div>
+            <div id="formfield-form-widgets-description" data-fieldname="form.widgets.description" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.description empty" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-description">
+                League Description
+                </label>
+                <div class="fieldErrorBox"></div>
+                <textarea class="textarea-widget text-field" name="form.widgets.description" id="form-widgets-description"></textarea>
+            </div>
+            <div id="formfield-form-widgets-league_private" data-fieldname="form.widgets.league_private" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.league_private" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <span id="form-widgets-league_private" class="option">
+                <input type="checkbox" value="selected" class="single-checkbox-widget bool-field" name="form.widgets.league_private:list" id="form-widgets-league_private-0">
+                <label for="form-widgets-league_private-0">
+                <span class="label">Make this league private?</span>
+                </label>
+                </span>
+                <input type="hidden" value="1" name="form.widgets.league_private-empty-marker">
+                <div class="fieldErrorBox"></div>
+            </div>
+            <div id="formfield-form-widgets-league_password" data-fieldname="form.widgets.league_password" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.league_password empty" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-league_password">
+                Create password for private league invitations
+                </label>
+                <div class="fieldErrorBox"></div>
+                <input type="password" class="password-widget password-field" name="form.widgets.league_password" id="form-widgets-league_password">
+            </div>
+            
+            <div id="formfield-form-widgets-player" data-fieldname="form.widgets.player" class="field pat-inlinevalidation kssattr-fieldname-form.widgets.player empty" data-pat-inlinevalidation="{&quot;type&quot;:&quot;z3c.form&quot;}">
+                <label class="horizontal" for="form-widgets-player">
+                Your Player Name (Owner of league is automatically added)
+                <span title="Required" class="required horizontal">&nbsp;</span>
+                </label>
+                <div class="fieldErrorBox"></div>
+                <input type="text" value="" class="text-widget required textline-field" name="form.widgets.player" id="form-widgets-player">
+            </div>
+            
+            
+            <!-- Secondary fieldsets -->
+            <div class="formControls">
+                <input type="submit" value="Create" class="submit-widget button-field context" name="form.buttons.save" id="form-buttons-save">
+                <input type="submit" value="Cancel" class="submit-widget button-field standalone" name="form.buttons.cancel" id="form-buttons-cancel">
+            </div>
+        </form>
+    
+	</metal:content-core>
+
+</body>
+</html>

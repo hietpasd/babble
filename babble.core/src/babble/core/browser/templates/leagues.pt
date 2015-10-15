@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+    
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">${context/Title}</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+    
+        <div class="buttons">
+            <a class="context" href="${context/absolute_url}/create_league">Create a league?</a>
+        </div>
+        
+        <div id="babble-league-listing">
+            <h3>Your Leagues</h3>
+            <ul>
+                <li tal:repeat="league view/get_your_leagues">
+                    <a href="${league/absolute_url}">${league/Title}</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div id="babble-league-public">
+            <h3>Open Public Leagues</h3>
+            <ul>
+                <li tal:repeat="data view/get_public_leagues">
+                    <a href="${data/league/getURL}">${data/league/Title}</a>
+                    <span tal:condition="data/open">(OPEN)</span>
+                    <span tal:condition="not:data/open">(CLOSED)</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div id="babble-league-private">
+            <h3>Private Leagues</h3>
+            <ul>
+                <li tal:repeat="league view/get_private_leagues">
+                    <a href="${league/getURL}">${league/Title}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        
+	</metal:content-core>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+Metadata-Version: 1.1
+Name: babble.core
+Version: 0.1
+Summary: Babble Basketball Core Infrastructure
+Home-page: http://pypi.python.org/pypi/babble.core
+Author: David Hietpas
+Author-email: hietpasd@uwosh.edu
+License: GPL version 2
+Description: 
+        ==============================================================================
+        babble.core
+        ==============================================================================
+        
+        9/27 - 5 hours
+        9/28 - 4 hours
+        
+        
+        Contributors
+        ============
+        
+        - David Hietpas, hietpasd@uwosh.edu
+        
+        Changelog
+        =========
+        
+        
+        0.1 (unreleased)
+        ----------------
+        
+        - Initial release.
+          []
+        
+        
+Keywords: Python Plone
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Plone
+Classifier: Framework :: Plone :: 5.0
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)

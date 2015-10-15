@@ -1,0 +1,119 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="babble.core">
+
+    <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+    <include package="z3c.jbot" file="meta.zcml" />
+
+    <!-- Publish static files -->
+    <browser:resourceDirectory
+        name="babble.core"
+        directory="static"
+        />
+
+      
+    <!-- VIEWS -->
+    <browser:page
+        for="babble.core.models.season.ISeason"
+        name="view_season"
+        class=".season.Season"
+        permission="zope2.View"
+        />
+    
+    
+    <browser:page
+        for="babble.core.models.leagues.ILeagues"
+        name="view_leagues"
+        class=".leagues.Leagues"
+        permission="zope2.View"
+        />
+        
+    <browser:page
+        for="babble.core.models.leagues.ILeagues"
+        name="create_league"
+        class=".create_league.CreateLeague"
+        permission="zope2.View"
+        />
+      
+    <browser:page
+        for="babble.core.models.league.ILeague"
+        name="view_league"
+        class=".league.League"
+        permission="zope2.View"
+        />
+      
+    <browser:page
+        for="babble.core.models.league.ILeague"
+        name="join_league"
+        class=".league.LeagueJoin"
+        permission="zope2.View"
+        />
+        
+    <browser:page
+        for="babble.core.models.league.ILeague"
+        name="predraft"
+        class=".drafting.PreseasonDraft"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="babble.core.models.league.ILeague"
+        name="middraft"
+        class=".drafting.MidseasonDraft"
+        permission="zope2.View"
+        />
+        
+    <browser:page
+        for="babble.core.models.player.IPlayer"
+        name="view_player"
+        class=".player.Player"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="babble.core.models.schedule.ISchedule"
+        name="schedule_view"
+        class=".schedule.Schedule"
+        permission="zope2.View"
+        />
+      
+    <browser:page
+        for="babble.core.models.game.IGame"
+        name="game_view"
+        class=".game.Game"
+        permission="zope2.View"
+        />
+
+        
+    <!-- Manager Tools -->
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="manage_tools"
+        class=".manage_tools.ManageTools"
+        permission="cmf.ManagePortal"
+        />
+        
+    <browser:page
+        for="babble.core.models.schedule.ISchedule"
+        name="manage_games"
+        class=".manage_games.ManageGames"
+        permission="cmf.ManagePortal"
+        />
+                
+    <browser:page
+        for="babble.core.models.teams.ITeams"
+        name="manage_teams"
+        class=".manage_teams.ManageTeams"
+        permission="cmf.ManagePortal"
+        />
+                
+    <browser:page
+        for="babble.core.models.season.ISeason"
+        name="manage_scores"
+        class=".manage_scores.ManageScores"
+        permission="cmf.ManagePortal"
+        />
+        
+</configure>

@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+    
+        <script type="text/javascript" src="++resource++babble.core/moment.min.js"></script>
+        <script type="text/javascript" src="++resource++babble.core/fullcalendar.js"></script>
+        <tal:block replace="structure view/get_schedule_events" />
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#calendar').fullCalendar({
+                   'firstDay': 1,
+                   'eventLimit': true, 
+                   'events': window.GameEvents
+                });
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+
+        <link type="text/css" rel="stylesheet" href="++resource++babble.core/fullcalendar.min.css" />
+        <style>
+            #content .fc-day-number { background-color: #eeeeee; }
+            #content .fc-today {background-color: #AEE7FF; }
+            #content .fc-day:hover {background-color: #eeeeee; }
+        </style>
+	</metal:block>
+
+    
+	<metal:content-core fill-slot="content-core">
+
+        
+        
+        <div id="calendar"></div>
+    
+	</metal:content-core>
+
+</body>
+</html>

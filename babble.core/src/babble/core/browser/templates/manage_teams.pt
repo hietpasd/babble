@@ -1,0 +1,190 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+            
+                // Filter
+                $('#team-filter').keyup(function(){
+                    var v = $(this).val().toLowerCase();
+                    if (v == '')
+                        v == '#####';
+                    $('div.team').each(function(){
+                        if($(this).attr('data-filter').toLowerCase().indexOf(v) == -1)
+                            $(this).hide();
+                        else
+                            $(this).show();
+                    });
+                });
+                $('#ap10-filter').click(function(){
+                    var checked = $(this).is(':checked');
+                
+                    $('div.team').each(function(i,t){
+                        if(checked) 
+                            if($(t).find('input[name="team.ap.10"]').is(':checked')) 
+                                $(t).show();
+                            else
+                                $(t).hide();
+                        if(!checked)
+                            $(t).show();
+                    });
+                });
+                $('#ap25-filter').click(function(){
+                    var checked = $(this).is(':checked');
+                
+                    $('div.team').each(function(i,t){
+                        if(checked) 
+                            if($(t).find('input[name="team.ap.25"]').is(':checked')) 
+                                $(t).show();
+                            else
+                                $(t).hide();
+                        if(!checked)
+                            $(t).show();
+                    });
+                });
+                
+            
+                // Saver Below
+                var queue = {}
+                
+                var bool = function(val) {
+                    console.log(val)
+                    if(val) return 1;
+                    else return 0;
+                }
+                
+                var add_saver = function(id){
+                    clearTimeout(queue[id]);
+                    queue[id] = null;
+                    queue[id] = setTimeout(function(){
+                        // process save
+                        console.log(id);
+                        var parent = $('#' + id);
+                        var data = {
+                            'form.team.submit':'1',
+                            'form.team.uid': id,
+                            '_authenticator': $('input[name="_authenticator"]').val(),
+                            'form.team.ap10': bool($(parent).find('input[name="team.ap.10"]').is(':checked')),
+                            'form.team.ap25': bool($(parent).find('input[name="team.ap.25"]').is(':checked')),
+                            'form.team.title': $(parent).find('input[name="team.title"]').val(),
+                            'form.team.conference': $(parent).find('select[name="team.conference"]').find('option:selected').val(),
+                        }
+                        
+                        $.post($('#form').attr('action'), data, function(response){
+                            if ($.parseJSON(response).status == 200)
+                                $(parent).find('.saving').html('Saved!').fadeOut(5000);
+                            else
+                                $(parent).find('.saving').html('ERROR SAVING!');
+                        });
+                    }, 3000);
+                }
+            
+            
+                $('input[name="team.ap.10"], input[name="team.ap.25"], select[name="team.conference"]').change(function(){
+                    var parent = $(this).parents('.team');
+                    add_saver($(parent).attr('id'));
+                    $(parent).find('.saving').html('Saving...').show();
+                });
+                $('input[name="team.title"]').keyup(function(){
+                    var parent = $(this).parents('.team');
+                    add_saver($(parent).attr('id'));
+                    $(parent).find('.saving').html('Saving...').show();
+                });
+                
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+        <style>
+            #content #form {
+                display: none;
+            }
+            #content .saving{
+                display:none;
+            }
+            #content .team {
+                background-color: #dddddd;
+                padding: 10px 15px;
+                border-bottom: 1px solid #bbbbbb;
+            }
+            #content .team * {
+                vertical-align: middle;
+            }
+            #content .team label {
+                margin: 0;
+                padding: 0;
+            }
+            #content .team input[type="checkbox"] {
+                margin-left: 10px;
+            }
+            #content .team select {
+                display: inline-block;
+                margin-left: 10px;
+                width: 200px;
+            }
+            
+            #content .team input[type="text"]{
+                display: inline-block;
+                margin-right: 10px;
+                width: 200px;
+            }
+            
+            #content #team-filter {
+                display: inline-block;
+                margin: 10px;
+                width: 200px;
+            }
+            #content #ap10-filter, #content #ap25-filter  {
+                margin-right: 10px;
+            }
+        </style>
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">Manage Teams</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+
+        <form id="form" action="${context/absolute_url}/manage_teams" method="post">
+            <input class="context" type="submit" name="form.teams.submit" value="Get Teams"  /> 
+        </form>
+       
+       
+        <label>Filter: </label>
+        <input id="team-filter" type="text" placeholder="e.g. Alcorn" />
+        <label for="ap10-filter">Show only AP 10?</label> 
+        <input id="ap10-filter" type="checkbox" />
+        <label for="ap25-filter">Show only AP 25?</label> 
+        <input id="ap25-filter" type="checkbox" />
+       
+       
+        <tal:block define="teams view/get_all_teams; confs view/get_conferences">
+            <div class="team" tal:repeat="team teams" id="${team/UID}" tal:attributes="data-filter python:team.Title.lower()">
+                <input id="title-${team/UID}" type="text" value="${team/Title}" name="team.title" />
+            
+                <input id="ap10-${team/UID}" name="team.ap.10" type="checkbox" tal:attributes="checked python:bool(team.ap_10)" />
+                <label for="ap10-${team/UID}">AP 10?</label> 
+                
+                <input id="ap25-${team/UID}" name="team.ap.25" type="checkbox" tal:attributes="checked python:bool(team.ap_25)" />
+                <label for="ap25-${team/UID}" title="Winner?">AP 25?</label> 
+                
+                <select id="conference-${team/UID}" name="team.conference" >
+                    <option tal:repeat="conf confs" value="${conf}" tal:attributes="selected python:(team.conference == conf)">${conf}</option>
+                </select>
+                <span class="saving">Saving...</span>
+            </div>
+        </tal:block>
+        
+	</metal:content-core>
+
+</body>
+</html>

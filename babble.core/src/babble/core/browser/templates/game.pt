@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+    
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+
+        <style>
+            #content .team { 
+                font-weight: bold;
+                font-size: 32px;
+                text-align: center;
+            }
+            #content .vs { 
+                font-weight: bold;
+                font-size: 20px;
+                color: orange;
+                text-align: center;
+            }
+        </style>
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">${context/Title} on ${view/game_date}</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+
+        <div class="team">
+            ${context/team_one} <tal:block condition="context/team_one_win"> <span class="winner">Winner</span></tal:block>
+        </div>
+        <div class="vs">verses</div>
+        <div class="team">
+            ${context/team_two} <tal:block condition="context/team_two_win"> <span class="winner">Winner</span></tal:block>
+        </div>   
+            
+	</metal:content-core>
+
+</body>
+</html>

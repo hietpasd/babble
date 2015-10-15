@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#form').submit(function(){
+                    return confirm("Are you 100% sure?");
+                });
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+        <style>
+            
+        </style>
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">Manage Teams</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+
+        <form id="form" action="${context/absolute_url}/manage_scores" method="post">
+        
+        
+            <label>This will run scores for every player for today's games</label>
+            <br />
+            <input class="context" type="submit" name="form.score.submit" value="Run Score Process"  /> (Make sure you are sure!)
+        </form>
+
+        
+	</metal:content-core>
+
+</body>
+</html>

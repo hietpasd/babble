@@ -1,0 +1,189 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+            
+                var queue = {}
+                
+                var bool = function(val) {
+                    console.log(val)
+                    if(val) return 1;
+                    else return 0;
+                }
+                
+                var add_saver = function(id){
+                    clearTimeout(queue[id]);
+                    queue[id] = null;
+                    queue[id] = setTimeout(function(){
+                        // process save
+                        console.log(id);
+                        var parent = $('#' + id);
+                        var data = {
+                            'form.game.submit':'1',
+                            'form.game.uid': id,
+                            '_authenticator': $('input[name="_authenticator"]').val(),
+                            'form.game.team_one_win': bool($(parent).find('input[name="game.winner.one"]').is(':checked')),
+                            'form.game.team_two_win': bool($(parent).find('input[name="game.winner.two"]').is(':checked')),
+                            'form.game.bonus_points': $(parent).find('input[name="game.bonus.points"]').val(),
+                        }
+                        
+                        $.post($('#form').attr('action'), data, function(response){
+                            if ($.parseJSON(response).status == 200)
+                                $(parent).find('.saving').html('Saved!').fadeOut(5000);
+                            else
+                                $(parent).find('.saving').html('ERROR SAVING!');
+                        });
+                    }, 3000);
+                }
+            
+            
+                $('input[name="game.winner.one"], input[name="game.winner.two"]').change(function(){
+                    var parent = $(this).parents('.game-match');
+                    add_saver($(parent).attr('id'));
+                    $(parent).find('.saving').html('Saving...').show();
+                });
+                $('input[name="game.bonus.points"]').keyup(function(){
+                    var parent = $(this).parents('.game-match');
+                    add_saver($(parent).attr('id'));
+                    $(parent).find('.saving').html('Saving...').show();
+                });
+                
+                // Game Events
+                $('#add-game-event').click(function(){
+
+                    $("#babble-popup").load($('body').attr('data-base-url') + "/++add++babble.core.models.gameevent #form", function(){
+                        $('#babble-popup, .plone-modal-backdrop').fadeIn(333);                        
+                        var date = $('input[name="form.schedule.date"]').val();
+                        $('input[name="form.widgets.start"]').val(date);
+                        
+                        $('#form').submit(function(e){
+                            e.preventDefault();  
+                            var data = $(this).serializeArray();
+                            data.push({'name': $('#form').find('input[value="Save"]').attr('name'), 'value': $('#form').find('input[value="Save"]').val() })
+                            data.push({'name': $('#form').find('input[value="Cancel"]').attr('name'), 'value': $('#form').find('input[value="Cancel"]').val() })
+                            $.post($(this).attr('action'), data, function(){
+                                console.log("GO ");
+                                document.location.href = $('body').attr('data-base-url') + '/manage_games';
+                            })
+                            
+                        });
+                        
+                        $('#form-buttons-cancel').click(function(e){
+                            e.preventDefault();
+                            $('#babble-popup, .plone-modal-backdrop').fadeOut(333);  
+                            $('#babble-popup').empty();  
+                        });
+                        
+                    });
+                  
+                });
+                
+                
+                
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+        <style>
+            #content #formdate {
+                background-color: #A4CDF0;
+                padding: 10px 20px;
+            }
+            #content .saving{
+                display:none;
+            }
+            #content .game-matches{
+                background-color: #3AC138;
+                color: white;
+                font-size: 18px;
+                padding: 4px 10px;
+            }
+            #content .game-events{
+                background-color: #C138AD;
+                color: white;
+                font-size: 18px;
+                padding: 4px 10px;
+            }
+            #content .game-match, #content .game-event {
+                background-color: #dddddd;
+                padding: 10px 15px;
+                border-bottom: 1px solid #bbbbbb;
+            }
+            #content .game-match *, #content .game-event * {
+                vertical-align: middle;
+            }
+            #content .game-match label, #content .game-event label  {
+                margin: 0;
+            }
+            #content .game-event span.high  {
+                color: darkred;
+                font-weight: bold;
+            }
+            #content .game-match .team{
+                display: inline-block;
+                margin-left: 5px;
+                width: 200px;
+            }
+            #content .game-match input[type="text"]{
+                display: inline-block;
+                width: 50px;
+            }
+            
+        </style>
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">Manage Games</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+
+        <form id="formdate" action="${context/absolute_url}/manage_games" method="post">
+            <input type="text" data-pat-pickadate='{"date": {"format": "mmmm d, yyyy", "monthsShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "max": [2035, 1, 1], "clear": "Clear", "min": [1915, 1, 1], "monthsFull": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "weekdaysFull": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "firstDay": 1, "selectYears": 200, "placeholder": "Enter date...", "today": "Today"}, "time": false}' value="${view/datestr}" name="form.schedule.date" class="pat-pickadate" style="display: none;" />
+            <input class="context" type="submit" name="form.schedule.submit" value="Get games"  /> 
+       </form>
+        
+        <div class="game-match">
+            Any change will save automatically. Check the winners and adjust points as needed. Add game events at botton for point adjustments
+        </div>
+        <div class="game-matches">Game Matches on ${view/datestr}</div>
+        <div class="game-match" tal:repeat="game view/games" id="${game/UID}">
+            <input id="team1-${game/UID}" name="game.winner.one" type="checkbox" tal:attributes="checked python:bool(game.team_one_win)" />
+            <label for="team1-${game/UID}" title="Winner?" class="team">${game/team_one}</label> 
+            <input id="team2-${game/UID}" name="game.winner.two" type="checkbox" tal:attributes="checked python:bool(game.team_two_win)" />
+            <label for="team2-${game/UID}" title="Winner?" class="team">${game/team_two}</label> 
+            <label class="points" for="points-${game/UID}">Winning Points</label> 
+            <input id="points-${game/UID}" name="game.bonus.points" type="text" value="${game/bonus_points}"/>
+            <span class="saving">Saving...</span>
+        </div>
+        
+        <div class="game-events">Game Events</div>
+        <div class="game-event" tal:repeat="game view/gameevents" id="${game/UID}">
+            <a href="${game/getURL}/edit">Edit</a> 
+            <span> - </span>
+            <span class="high">${game/team_one}</span> 
+            <span>apply </span>
+            <span class="high">${game/bonus_points}</span> 
+            <span>points for </span>
+            <span class="high">${game/Title}</span>
+        </div>
+        <input id="add-game-event" class="context" type="button" value="Add Game Event"  /> 
+        
+        
+        
+	</metal:content-core>
+    
+    
+    
+
+</body>
+</html>

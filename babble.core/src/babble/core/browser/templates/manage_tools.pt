@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+        <style>
+            #content form {
+                background-color: #A4CDF0;
+                padding: 10px 20px;
+            }
+            #content form .active-season {
+                color: red;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            #content #manager-links{
+                list-style-type: circle;
+            }
+            
+        </style>
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">Manager Tools</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+    <tal:block define="active view/get_active_season">
+    
+        <ul id="manager-links">
+            <li>
+                <a href="${active/getURL}/@@manage_scores">Manage Scores</a> (Caution: Contains controls to run scoring)
+            </li>
+            <li>
+                <a href="${active/getURL}/edit">Manage Season Dates</a>
+            </li>
+            <li>
+                <a href="${active/getURL}/schedule/@@manage_games">Manage Game Wins/Loses/Points</a>
+            </li>
+            <li>
+                <a href="${active/getURL}/teams/@@manage_teams">Manage Teams (AP10,AP25,Conferences)</a>
+            </li>
+            <li>
+                <a href="${active/getURL}/schedule/folder_contents">Show Scheduled Games Folder</a>
+            </li>
+            <li>
+                <a href="${active/getURL}/teams/folder_contents">Show Teams Folder</a>
+            </li>
+        </ul>
+    
+        <br />
+        <br />
+        
+        <form id="manager-create-season" method="post" action="${context/absolute_url}/@@manage_tools">
+            <label for="form.create.title">Create Season:</label>
+            <input type="text" name="form.create.title" value="" placeholder="example: 2015-2016" />
+            <br />
+            <input class="context" type="submit" name="form.create.submit" value="Create new season"  />
+        </form>
+        
+        
+        <br />
+        <br />
+        
+        
+        <form id="manager-active-season" method="post" action="${context/absolute_url}/@@manage_tools">
+            <span class="active-season">ACTIVE: ${active/Title}</span>
+            <br />
+            <label for="form.schedule.season">Select Season:</label>
+            <select name="form.active.season">
+                <option tal:repeat="season view/get_all_seasons" value="${season/getId}"> ${season/Title}</option>
+            </select>
+            <br />
+            <br />
+            <input class="context" type="submit" name="form.active.submit" value="Change Active Season"  /> 
+        </form>
+    
+        
+        <br />
+        <br />
+        
+        <form id="manager-upload-teams" method="post" action="${context/absolute_url}/@@manage_tools" enctype="multipart/form-data">
+            <label for="form.teams.file">Select Team File to upload to current Active season:</label>
+            <input type="file" name="form.teams.file" />  (Columns should be comma delimited: Team,Conference,Major/Mid/Minor)
+            <br />
+            <br />
+            <input class="context" type="submit" name="form.teams.submit" value="Upload Team Data"  /> This will take a LONG time (~5 minutes)
+        </form>
+        
+        <br />
+        <br />
+        
+        
+        <form id="manager-upload-schedule" method="post" action="${context/absolute_url}/@@manage_tools" enctype="multipart/form-data">
+            <label for="form.schedule.file">Select Schedule File to upload to current Active season:</label>
+            <span>STOP! Only upload 2500 max at once.</span>
+            <input type="file" name="form.schedule.file" />  (Columns should be comma delimited: Team,Team,Date)
+            <br />
+            <br />
+            <input class="context" type="submit" name="form.schedule.submit" value="Upload Schedule Data"  /> This will take a LONG time (~15 minutes)
+        </form>
+    
+        
+    </tal:block>
+	</metal:content-core>
+
+</body>
+</html>
