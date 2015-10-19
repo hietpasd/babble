@@ -14,11 +14,13 @@
     <element value="babble.core.models.schedule" />
     <element value="babble.core.models.leagues" />
     <element value="babble.core.models.teams" />
+    <element value="News Item" />
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">view_season</property>
  <property name="view_methods">
   <element value="view_season"/>
+  <element value="news_season"/>
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>

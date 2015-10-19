@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+	  lang="en">
+<body>
+
+	<metal:block fill-slot="javascript_head_slot">
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+            });
+        </script>
+	</metal:block>
+    
+	<metal:block fill-slot="style_slot">
+    
+	</metal:block>
+
+	<metal:content-title fill-slot="content-title">
+		<h1 class="documentFirstHeading">${context/Title} Season</h1>
+	</metal:content-title>
+
+    
+	<metal:content-core fill-slot="content-core">
+    
+        <div id="babble-season">
+            
+            <div tal:repeat="news view/get_news">
+                
+                
+                <h2>
+                    <a href="${news/getURL}">
+                        ${news/Title}
+                    </a>
+                </h2>
+                <div class="news">
+                    <tal:block replace="structure python:view.get_body(news)"/>
+                </div>
+                <div class="comments" tal:define="comments python:view.get_discussion(news.getPath())">
+                    <a href="${news/getURL}">Comments (<span tal:replace="python:len(comments)"/>)</a>
+                </div>
+                
+            </div>
+            
+        </div>
+    
+	</metal:content-core>
+
+</body>
+</html>

@@ -21,6 +21,13 @@
         class=".season.Season"
         permission="zope2.View"
         />
+        
+    <browser:page
+        for="babble.core.models.season.ISeason"
+        name="news_season"
+        class=".season.SeasonNews"
+        permission="zope2.View"
+        />
     
     
     <browser:page

@@ -16,3 +16,22 @@ class Season(BaseView):
     
     def __call__(self):
         return self.template()
+
+        
+class SeasonNews(BaseView):
+
+    template = ViewPageTemplateFile("templates/season_news.pt")
+    
+    def __call__(self):
+        return self.template()
+
+    def get_news(self):
+        return api.content.find(context=api.portal.get(), portal_type='News Item', sort_on="created", sort_order='descending')
+        
+    def get_discussion(self, path):
+        return api.content.find(context=api.content.get(path=path), portal_type='Discussion Item', sort_on="created", sort_order='descending')
+        
+    def get_body(self, obj):
+        return obj.getObject().text.raw
+        
+        
