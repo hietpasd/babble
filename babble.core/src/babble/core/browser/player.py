@@ -32,3 +32,19 @@ class Player(BaseView):
             if teams:
                 data.append(teams[0])
         return data
+
+        
+    def get_log(self):
+        po = self.context.score_history
+        pos = po.split('\n')
+        pos.reverse()
+        log = []
+        for line in pos:
+            if line:
+                data = line.split('|') 
+                log.append({
+                    'date': data[0],
+                    'points': data[1],
+                    'info': data[2],
+                })
+        return log

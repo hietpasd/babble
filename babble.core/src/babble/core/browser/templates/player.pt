@@ -9,13 +9,25 @@
 	<metal:block fill-slot="javascript_head_slot">
         <script type="text/javascript">
             $(document).ready(function(){
-
+                $('#score-log-toggle').click(function(){
+                    $('#score-log').toggle();
+                });
             });
         </script>
 	</metal:block>
     
 	<metal:block fill-slot="style_slot">
-    
+        <style>
+            #score-log-toggle {
+                color: #007bb3;
+                cursor: pointer;
+            }
+            #score-log {
+                border: 1px solid #dddddd;
+                display: none;
+                padding: 10px;
+            }
+        </style>
 	</metal:block>
 
 	<metal:content-title fill-slot="content-title">
@@ -38,6 +50,15 @@
                     <a href="${team/getURL}">${team/Title} - ${team/conference}</a>
                 </li>
             </ol>
+            
+            
+            <div id="score-log-toggle">Show score audit</div>
+            <div id="score-log">
+                <div tal:repeat="log view/get_log">
+                    [${log/date}] Add ${log/points} ${log/info}
+                </div>
+            </div>
+            
             
         </div>
     
