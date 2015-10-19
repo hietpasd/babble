@@ -48,7 +48,7 @@
         </div>
         
         
-        <div id="babble-league-draft">
+        <div id="babble-league-draft" tal:condition="view/is_pre_season_draft_visible">
             <h2> Draft Order </h2>
             <ol id="babble-league-ranking">
                 <li tal:repeat="player view/get_league_players_by_draft">
