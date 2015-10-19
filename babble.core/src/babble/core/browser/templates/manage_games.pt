@@ -155,8 +155,15 @@
         <div class="game-match">
             Any change will save automatically. Check the winners and adjust points as needed. Add game events at botton for point adjustments
         </div>
+        
+        <br />
+        <br />
+        
         <div class="game-matches">Game Matches on ${view/datestr}</div>
+        <div class="game-match" tal:condition="not:view/games">No game matches</div>
         <div class="game-match" tal:repeat="game view/games" id="${game/UID}">
+            <a href="${game/getURL}/edit">Full Edit</a> 
+            <span> - </span>
             <input id="team1-${game/UID}" name="game.winner.one" type="checkbox" tal:attributes="checked python:bool(game.team_one_win)" />
             <label for="team1-${game/UID}" title="Winner?" class="team">${game/team_one}</label> 
             <input id="team2-${game/UID}" name="game.winner.two" type="checkbox" tal:attributes="checked python:bool(game.team_two_win)" />
@@ -166,7 +173,11 @@
             <span class="saving">Saving...</span>
         </div>
         
+        <br />
+        <br />
+        
         <div class="game-events">Game Events</div>
+        <div class="game-event" tal:condition="not:view/gameevents">No game events</div>
         <div class="game-event" tal:repeat="game view/gameevents" id="${game/UID}">
             <a href="${game/getURL}/edit">Edit</a> 
             <span> - </span>
@@ -176,6 +187,7 @@
             <span>points for </span>
             <span class="high">${game/Title}</span>
         </div>
+        <br />
         <input id="add-game-event" class="context" type="button" value="Add Game Event"  /> 
         
         

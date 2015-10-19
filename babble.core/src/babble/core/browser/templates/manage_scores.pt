@@ -9,9 +9,6 @@
 	<metal:block fill-slot="javascript_head_slot">
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#form').submit(function(){
-                    return confirm("Are you 100% sure?");
-                });
             });
         </script>
 	</metal:block>
@@ -23,17 +20,18 @@
 	</metal:block>
 
 	<metal:content-title fill-slot="content-title">
-		<h1 class="documentFirstHeading">Manage Teams</h1>
+		<h1 class="documentFirstHeading">Manage Scores</h1>
 	</metal:content-title>
 
     
 	<metal:content-core fill-slot="content-core">
 
-        <form id="form" action="${context/absolute_url}/manage_scores" method="post">
+        <form id="form" action="${context/absolute_url}/manage_scores" method="post" class="confirm-this">
         
         
-            <label>This will run scores for every player for today's games</label>
+            <label>This will run scores for every player on the day specified</label>
             <br />
+            <input type="text" data-pat-pickadate='{"date": {"format": "mmmm d, yyyy", "monthsShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "max": [2035, 1, 1], "clear": "Clear", "min": [1915, 1, 1], "monthsFull": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "weekdaysFull": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "firstDay": 1, "selectYears": 200, "placeholder": "Enter date...", "today": "Today"}, "time": false}' value="${view/datestr}" name="form.schedule.date" class="pat-pickadate" style="display: none;" />
             <input class="context" type="submit" name="form.score.submit" value="Run Score Process"  /> (Make sure you are sure!)
         </form>
 

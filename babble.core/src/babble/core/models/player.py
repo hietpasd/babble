@@ -35,10 +35,10 @@ class IPlayer(model.Schema):
             required=True,
         )
         
-    score = schema.TextLine(
+    score = schema.Int(
             title=u"Player Score",
             required=False,
-            default=u"0",
+            default=0,
         )
 
     pick_order = schema.Int(

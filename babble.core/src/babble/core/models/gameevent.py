@@ -33,7 +33,7 @@ class IGameEvent(model.Schema):
     description = schema.Text(
             title=u"Description",
             default=u"",
-            required=True,
+            required=False,
         )
         
     start = schema.Date(

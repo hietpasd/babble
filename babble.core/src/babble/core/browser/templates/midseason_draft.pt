@@ -37,7 +37,7 @@
             </ol>
                
             <div id="babble-league-chooser" tal:condition="python: view.is_your_pick(picks)">
-                <form id="form" action="${context/absolute_url}/@@team_chooser" method="post">
+                <form id="form" action="${context/absolute_url}/middraft" method="post">
                     
                     <select name="form.pick.choice">
                         <option tal:repeat="team python: view.get_available_teams(picks)" value="${team/getId}">${team/Title}</option>
