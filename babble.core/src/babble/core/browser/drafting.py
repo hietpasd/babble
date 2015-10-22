@@ -37,7 +37,7 @@ class PreseasonDraft(BaseView):
         return api.content.find(context=self.get_active_season(), portal_type='babble.core.models.team', id=id)[0]
 
     def get_available_teams(self, picks):
-        current_round = int(picks[0]['current_round'])
+        current_round = int(picks.pop()['current_round'])
         
         already_picked = []
         you = self.your_player()
