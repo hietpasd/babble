@@ -35,8 +35,8 @@
     
 	<metal:content-core fill-slot="content-core">
 
-        <input tal:condition="python: context.league_private and not view.is_in_league and not view.reached_league_max" id="babble-league-join" class="context" type="button" value="Join League &#128274;"  />
-        <input tal:condition="python: not context.league_private and not view.is_in_league and not view.reached_league_max" id="babble-league-join" class="context" type="button" value="Join League"  />
+        <input tal:condition="python: context.league_private and not view.is_in_league and not view.reached_league_max and view.is_authenticated and not view.is_pre_season_draft_visible" id="babble-league-join" class="context" type="button" value="Join League &#128274;"  />
+        <input tal:condition="python: not context.league_private and not view.is_in_league and not view.reached_league_max and view.is_authenticated and not view.is_pre_season_draft_visible" id="babble-league-join" class="context" type="button" value="Join League"  />
 
         <div id="babble-your-league-listing">
             <h2> League Standings </h2>

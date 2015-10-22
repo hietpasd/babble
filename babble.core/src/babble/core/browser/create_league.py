@@ -48,7 +48,7 @@ class CreateLeague(BaseView):
                                 pick_order = random.randint(1, 200000000),
                                 owner=user.getProperty('email'))
             
-            return self.request.response.redirect(self.context.absolute_url() + '/' + id)
+            return self.request.response.redirect(self.context.absolute_url() + '/' + id + '/preventrefresh?goto=' + self.context.absolute_url() + '/' + id)
             
             
         return self.template()

@@ -18,16 +18,20 @@ class Player(BaseView):
         return self.template()
 
     def get_member_image(self):
-        membership = api.portal.get_tool(name='portal_membership')
-        member = api.user.get(username=self.context.owner)
-        return membership.getPersonalPortrait(id=member.id)
-        
+        try:
+            membership = api.portal.get_tool(name='portal_membership')
+            member = api.user.get(username=self.context.owner)
+            return membership.getPersonalPortrait(id=member.id)
+        except:
+            return ''
+            
     def get_member(self):
         return api.user.get(username=self.context.owner)
         
     def get_teams(self):
         data = []
         for id in self.context.picked_teams:
+            print id
             teams = api.content.find(context=self.get_active_season(), portal_type='babble.core.models.team', id=id)
             if teams:
                 data.append(teams[0])

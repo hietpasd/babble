@@ -64,11 +64,6 @@ class IGame(model.Schema):
             required=False,
         )
         
-    team_one_conference = schema.Choice(
-            title=u"Team Conference",
-            required=True,
-            source=conference_vocab,
-        )
         
     team_two = schema.Choice(
             title=u"Team",
@@ -82,11 +77,6 @@ class IGame(model.Schema):
             required=False,
         )
         
-    team_two_conference = schema.Choice(
-            title=u"Team Conference",
-            required=True,
-            source=conference_vocab,
-        )
         
     bonus_points = schema.Int(
             title=u"Points to apply to winner",

@@ -45,6 +45,22 @@ class BaseView(BrowserView):
         return len(self.get_league_players()) >= self.LEAGUE_MAX
         
     @property
+    def within_predraft_date(self):
+        now = datetime.date.today()
+        season = self.get_active_season().getObject()
+        if season.preseason_draft_start <= now and season.preseason_draft_end >= now:
+            return True
+        return False
+        
+    @property
+    def within_middraft_date(self):
+        now = datetime.date.today()
+        season = self.get_active_season().getObject()
+        if season.midseason_draft_start <= now and season.midseason_draft_end >= now:
+            return True
+        return False
+        
+    @property
     def portal(self):
         return api.portal.get()
         

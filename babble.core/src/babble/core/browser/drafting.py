@@ -28,6 +28,8 @@ class PreseasonDraft(BaseView):
                 player.picked_teams += [pick.getId]
                 player.picked_conferences += [pick.conference]
                 player.reindexObject()
+                return self.request.response.redirect(self.context.absolute_url() + '/preventrefresh?goto=' + self.context.absolute_url() + '/predraft')
+                
         return self.template()
 
         
@@ -47,7 +49,7 @@ class PreseasonDraft(BaseView):
         teams = []
         brains = api.content.find(context=self.get_active_season(), portal_type='babble.core.models.team', sort_on='sortable_title')
         for brain in brains:
-            if current_round <= 4:
+            if current_round < 4:
                 if brain.conference not in you.picked_conferences and brain.getId not in already_picked:
                     teams.append(brain)
             else: 
@@ -97,17 +99,10 @@ class PreseasonDraft(BaseView):
         player = self.your_player()
         active = filter(lambda x: x['current_pick'] and not x['pick'], picks)
         
-        if active and self.within_draft_date():
+        if active and self.within_predraft_date:
             return (active[0]['owner'] == player.owner)
         return False
         
-        
-    def within_draft_date(self):
-        now = datetime.date.today()
-        season = self.get_active_season().getObject()
-        if season.preseason_draft_start <= now and season.preseason_draft_end >= now:
-            return True
-        return False
         
         
     def your_player(self):
@@ -151,7 +146,18 @@ class MidseasonDraft(PreseasonDraft):
                 player.picked_teams += [pick.getId]
                 player.picked_conferences += [pick.conference]
                 player.reindexObject()
+                return self.request.response.redirect(self.context.absolute_url() + '/preventrefresh?goto=' + self.context.absolute_url() + '/middraft')
+                
         return self.template()
+        
+        
+    def is_your_pick(self, picks):
+        player = self.your_player()
+        active = filter(lambda x: x['current_pick'] and not x['pick'], picks)
+        
+        if active and self.within_middraft_date:
+            return (active[0]['owner'] == player.owner)
+        return False
         
         
     def lister(self):

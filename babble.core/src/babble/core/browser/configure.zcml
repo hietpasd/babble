@@ -16,6 +16,13 @@
       
     <!-- VIEWS -->
     <browser:page
+        for="*"
+        name="preventrefresh"
+        class=".preventrefresh.PreventRefresh"
+        permission="zope2.View"
+        />
+    
+    <browser:page
         for="babble.core.models.season.ISeason"
         name="view_season"
         class=".season.Season"

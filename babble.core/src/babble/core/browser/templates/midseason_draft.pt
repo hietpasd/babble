@@ -26,16 +26,6 @@
 	<metal:content-core fill-slot="content-core">
     
         <tal:block define="picks view/lister">
-            <h3>Player Draft Order</h3>
-            <ol>
-                <li tal:repeat="player picks">
-                    <tal:if condition="python: not player['pick'] and player['current_pick']">(Round: ${player/round} - Drafting)</tal:if>
-                    <tal:if condition="python: not player['pick'] and not player['current_pick']">(Round: ${player/round} - Waiting)</tal:if>
-                    <tal:if condition="player/pick"> Round: ${player/round} - <b>${player/pick}</b> picked by </tal:if>
-                    <a href="${player/url}">${player/player}</a>
-                </li>
-            </ol>
-               
             <div id="babble-league-chooser" tal:condition="python: view.is_your_pick(picks)">
                 <form id="form" action="${context/absolute_url}/middraft" method="post">
                     
@@ -46,6 +36,17 @@
                     <input class="context" type="submit" name="form.pick.submit" value="Make this team MINE!" />
                 </form>
             </div>
+            
+            <h3>Player Draft Order</h3>
+            <ol>
+                <li tal:repeat="player picks">
+                    <tal:if condition="python: not player['pick'] and player['current_pick']">(Round: ${player/round} - Drafting)</tal:if>
+                    <tal:if condition="python: not player['pick'] and not player['current_pick']">(Round: ${player/round} - Waiting)</tal:if>
+                    <tal:if condition="player/pick"> Round: ${player/round} - <b>${player/pick}</b> picked by </tal:if>
+                    <a href="${player/url}">${player/player}</a>
+                </li>
+            </ol>
+
         </tal:block>
 
 	</metal:content-core>

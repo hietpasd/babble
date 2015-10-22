@@ -7,18 +7,34 @@ from zope.interface import directlyProvides
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary
 
-
 def teams_vocab(context):
     try:
         season = api.content.find(portal_type='babble.core.models.season', active=True)[0]
         voc = []
         brains = api.content.find(context=season, portal_type='babble.core.models.team', sort_on='sortable_title')
         for brain in brains:
-            voc.append(SimpleVocabulary.createTerm(brain.Title,brain.getId))
+            voc.append(SimpleVocabulary.createTerm(brain.getId,brain.getId))
         return SimpleVocabulary(voc)
     except Exception as e:
-        return []
+        return SimpleVocabulary([])
 directlyProvides(teams_vocab, IContextSourceBinder)
+
+
+def confs_vocab(context):
+    try:
+        season = api.content.find(portal_type='babble.core.models.season', active=True)[0]
+        unique = {}
+        voc = []
+        brains = api.content.find(context=season, portal_type='babble.core.models.team', sort_on='sortable_title')
+        for brain in brains:
+            unique[brain.conference] = brain.conference
+        for k,v in unique.items():
+            voc.append(SimpleVocabulary.createTerm(k,k))
+        return SimpleVocabulary(voc)
+    except Exception as e:
+        return SimpleVocabulary([])
+directlyProvides(confs_vocab, IContextSourceBinder)
+
 
 
 class IPlayer(model.Schema):
@@ -55,23 +71,20 @@ class IPlayer(model.Schema):
 
     picklist = schema.List(
             title=u"Player Pick List",
-            default=[],
             required=False,
             value_type=schema.Choice(source=teams_vocab),
         )
         
     picked_teams = schema.List(
             title=u"Players Teams",
-            default=[],
             required=False,
             value_type=schema.Choice(source=teams_vocab),
         )
         
     picked_conferences = schema.List(
             title=u"Players Teams Conferences",
-            default=[],
             required=False,
-            value_type=schema.Choice(source=teams_vocab),
+            value_type=schema.Choice(source=confs_vocab),
         )
         
         

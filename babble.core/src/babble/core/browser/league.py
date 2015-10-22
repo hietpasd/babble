@@ -36,8 +36,8 @@ class LeagueJoin(League):
             playername = self.request.form.get('form.widgets.player', user.getProperty('fullname'))
             
             if self.context.league_private:
-                password = self.request.form.get('form.widgets.password','')
-                if password != self.context.league_password:
+                password = self.request.form.get('form.widgets.password','').replace(' ','')
+                if str(password) != str(self.context.league_password):
                     return "error pass mismatch: TODO make warning popup"
                 
             # Create a Player
@@ -48,7 +48,7 @@ class LeagueJoin(League):
                                 pick_order = random.randint(1, 200000000),
                                 owner=user.getProperty('email'))
                                 
-            return self.request.response.redirect(self.context.absolute_url())
+            return self.request.response.redirect(self.context.absolute_url() + '/preventrefresh?goto=' + self.context.absolute_url())
             
                 
         return self.template()
