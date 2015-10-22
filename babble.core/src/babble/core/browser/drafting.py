@@ -49,10 +49,12 @@ class PreseasonDraft(BaseView):
         teams = []
         brains = api.content.find(context=self.get_active_season(), portal_type='babble.core.models.team', sort_on='sortable_title')
         for brain in brains:
-            if int(current_round) < 4:
+            if current_round < 4:
+                print "CONFERENCE EXCLUDE: CURRENT ROUND: " + str(current_round)
                 if brain.conference not in you.picked_conferences and brain.getId not in already_picked:
                     teams.append(brain)
             else: 
+                print "CONFERENCE AlLOWED: CURRENT ROUND: " + str(current_round)
                 if brain.getId not in already_picked:
                     teams.append(brain)
                     
