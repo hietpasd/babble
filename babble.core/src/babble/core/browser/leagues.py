@@ -30,7 +30,7 @@ class Leagues(BaseView):
         leagues = api.content.find(context=self.context, portal_type='babble.core.models.league', league_private=False)
         data = []
         for league in leagues:
-            players = api.content.find(context=self.context, portal_type='babble.core.models.player', path={'query':league.getPath})
+            players = api.content.find(context=api.content.get(path=league.getPath()), portal_type='babble.core.models.player', path={'query':league.getPath})
             data.append({'league':league,
                          'open': (len(players) < 11)
             })

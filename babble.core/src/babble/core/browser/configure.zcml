@@ -13,6 +13,15 @@
         directory="static"
         />
 
+              
+    <!-- UTIL -->
+    <browser:page
+        for="*"
+        name="resetPlayersScores"
+        class=".utility.ResetPlayersScores"
+        permission="cmf.ManagePortal"
+        />
+      
       
     <!-- VIEWS -->
     <browser:page

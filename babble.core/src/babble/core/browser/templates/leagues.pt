@@ -25,9 +25,10 @@
     
 	<metal:content-core fill-slot="content-core">
     
-        <div class="buttons" tal:condition="python: view.is_authenticated">
+        <!--
+        <div class="buttons" tal:condition="python: view.is_authenticated" style="display: none">
             <a class="context" href="${context/absolute_url}/create_league">Create a league?</a>
-        </div>
+        </div>-->
         
         <div id="babble-league-listing">
             <h3>Your Leagues</h3>

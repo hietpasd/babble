@@ -72,18 +72,21 @@ class IPlayer(model.Schema):
     picklist = schema.List(
             title=u"Player Pick List",
             required=False,
+            default=[],
             value_type=schema.Choice(source=teams_vocab),
         )
         
     picked_teams = schema.List(
             title=u"Players Teams",
             required=False,
+            default=[],
             value_type=schema.Choice(source=teams_vocab),
         )
         
     picked_conferences = schema.List(
             title=u"Players Teams Conferences",
             required=False,
+            default=[],
             value_type=schema.Choice(source=confs_vocab),
         )
         

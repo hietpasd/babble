@@ -46,15 +46,12 @@ src/babble/core/browser/manage_teams.py
 src/babble/core/browser/manage_teams.pyc
 src/babble/core/browser/manage_tools.py
 src/babble/core/browser/manage_tools.pyc
-src/babble/core/browser/manager_games.pyc
-src/babble/core/browser/manager_tools.pyc
 src/babble/core/browser/player.py
 src/babble/core/browser/player.pyc
 src/babble/core/browser/schedule.py
 src/babble/core/browser/schedule.pyc
 src/babble/core/browser/season.py
 src/babble/core/browser/season.pyc
-src/babble/core/browser/team_chooser.pyc
 src/babble/core/browser/overrides/.gitkeep
 src/babble/core/browser/static/.gitkeep
 src/babble/core/browser/static/calander.js
@@ -83,7 +80,6 @@ src/babble/core/models/configure.zcml
 src/babble/core/models/game.py
 src/babble/core/models/game.pyc
 src/babble/core/models/gameevent.py
-src/babble/core/models/gameevent.pyc
 src/babble/core/models/league.py
 src/babble/core/models/league.pyc
 src/babble/core/models/leagues.py
@@ -95,7 +91,6 @@ src/babble/core/models/schedule.pyc
 src/babble/core/models/season.py
 src/babble/core/models/season.pyc
 src/babble/core/models/team.py
-src/babble/core/models/team.pyc
 src/babble/core/models/teams.py
 src/babble/core/models/teams.pyc
 src/babble/core/profiles/default/babblecore_default.txt

@@ -55,7 +55,7 @@
             <div id="score-log-toggle">Show score audit</div>
             <div id="score-log">
                 <div tal:repeat="log view/get_log">
-                    [${log/date}] Add ${log/points} ${log/info}
+                    [${log/date}] ${log/points} ${log/info}
                 </div>
             </div>
             

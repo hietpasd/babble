@@ -30,25 +30,32 @@ class Player(BaseView):
         
     def get_teams(self):
         data = []
-        for id in self.context.picked_teams:
-            print id
-            teams = api.content.find(context=self.get_active_season(), portal_type='babble.core.models.team', id=id)
-            if teams:
-                data.append(teams[0])
+        if self.context.picked_teams:
+            for id in self.context.picked_teams:
+                teams = api.content.find(context=self.get_active_season(), portal_type='babble.core.models.team', id=id)
+                if teams:
+                    data.append(teams[0])
         return data
 
         
     def get_log(self):
-        po = self.context.score_history
-        pos = po.split('\n')
-        pos.reverse()
-        log = []
-        for line in pos:
-            if line:
-                data = line.split('|') 
-                log.append({
-                    'date': data[0],
-                    'points': data[1],
-                    'info': data[2],
-                })
-        return log
+        try:
+            po = self.context.score_history
+            pos = po.split('\n')
+            pos.reverse()
+            log = []
+            for line in pos:
+                if line:
+                    data = line.split('|') 
+                    log.append({
+                        'date': data[0],
+                        'points': data[1],
+                        'info': data[2],
+                    })
+            return log
+        except:
+            return [{
+                        'date': 'Error getting audit, see admin',
+                        'points': '',
+                        'info': '',
+                    }]
