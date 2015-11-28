@@ -69,7 +69,7 @@ class ManageScores(BaseView):
                         player_log += self._log(ap_10_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'] + " for beating an AP10 ranked team")
                     if winners[team]['losing_team'] in ap25: 
                         ap_25_points = self.WIN_AP_25
-                        master_score += WIN_AP_25
+                        master_score += self.WIN_AP_25
                         player_log += self._log(ap_25_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'] + " for beating an AP25 ranked team")
                         
                 # -- SECTION C-E RULES --------------------------------------------------------
