@@ -19,7 +19,6 @@ src/babble/core/__init__.py
 src/babble/core/__init__.pyc
 src/babble/core/configure.zcml
 src/babble/core/interfaces.py
-src/babble/core/interfaces.pyc
 src/babble/core/setuphandlers.py
 src/babble/core/setuphandlers.pyc
 src/babble/core/testing.py
@@ -48,10 +47,14 @@ src/babble/core/browser/manage_tools.py
 src/babble/core/browser/manage_tools.pyc
 src/babble/core/browser/player.py
 src/babble/core/browser/player.pyc
+src/babble/core/browser/preventrefresh.py
+src/babble/core/browser/preventrefresh.pyc
 src/babble/core/browser/schedule.py
 src/babble/core/browser/schedule.pyc
 src/babble/core/browser/season.py
 src/babble/core/browser/season.pyc
+src/babble/core/browser/utility.py
+src/babble/core/browser/utility.pyc
 src/babble/core/browser/overrides/.gitkeep
 src/babble/core/browser/static/.gitkeep
 src/babble/core/browser/static/calander.js
@@ -72,6 +75,7 @@ src/babble/core/browser/templates/player.pt
 src/babble/core/browser/templates/preseason_draft.pt
 src/babble/core/browser/templates/schedule.pt
 src/babble/core/browser/templates/season.pt
+src/babble/core/browser/templates/season_news.pt
 src/babble/core/locales/babble.core.pot
 src/babble/core/locales/update.sh
 src/babble/core/models/__init__.py

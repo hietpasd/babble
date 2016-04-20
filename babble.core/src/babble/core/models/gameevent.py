@@ -49,7 +49,7 @@ class IGameEvent(model.Schema):
 
     bonus_points = schema.Int(
             title=u"Points to players with this team",
-            default=1,
+            default=3,
             required=True,
         )
         

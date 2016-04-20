@@ -59,18 +59,18 @@ class ManageScores(BaseView):
                     master_score += standard_points
                     player_log += self._log(standard_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'])
                     # extra points
-                    if winners[team]['losing_team'] in league_picked_teams: # winners[team] gets loser
-                        league_victory_points = self.WIN_LEAGUE_OPPONENT
-                        master_score += league_victory_points
-                        player_log += self._log(league_victory_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'] + " and beating another players team in the league")
-                    if winners[team]['losing_team'] in ap10: 
-                        ap_10_points = self.WIN_AP_10
-                        master_score += ap_10_points
-                        player_log += self._log(ap_10_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'] + " for beating an AP10 ranked team")
-                    if winners[team]['losing_team'] in ap25: 
-                        ap_25_points = self.WIN_AP_25
-                        master_score += self.WIN_AP_25
-                        player_log += self._log(ap_25_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'] + " for beating an AP25 ranked team")
+                    #if winners[team]['losing_team'] in league_picked_teams: # winners[team] gets loser
+                    #    league_victory_points = self.WIN_LEAGUE_OPPONENT
+                    #    master_score += league_victory_points
+                    #    player_log += self._log(league_victory_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'] + " and beating another players team in the league")
+                    #if winners[team]['losing_team'] in ap10: 
+                    #    ap_10_points = self.WIN_AP_10
+                    #    master_score += ap_10_points
+                    #    player_log += self._log(ap_10_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'] + " for beating an AP10 ranked team")
+                    #if winners[team]['losing_team'] in ap25: 
+                    #    ap_25_points = self.WIN_AP_25
+                    #    master_score += self.WIN_AP_25
+                    #    player_log += self._log(ap_25_points, " for having winning team " + winners[team]['team_clean'] + " in " + winners[team]['title'] + " for beating an AP25 ranked team")
                         
                 # -- SECTION C-E RULES --------------------------------------------------------
                 if team in events:

@@ -80,6 +80,6 @@ class IGame(model.Schema):
         
     bonus_points = schema.Int(
             title=u"Points to apply to winner",
-            default=1,
+            default=3,
             required=True,
         )
